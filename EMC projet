@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAR'O LIB — Mobilité à La Réunion</title>
+<meta name="description" content="Projet étudiant de voitures sans permis en libre-service à La Réunion.">
+
+<style>
+:root{
+  --green:#1746c7;
+  --dark:#101a35;
+  --light:#f3f6ff;
+  --line:#d9e0f2;
+  --orange:#d4a72c
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+  color:var(--dark);
+  background:#fff;
+  line-height:1.55
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:#ffffffee;
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)
+}
+
+nav{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 20px
+}
+
+.logo{
+  font-weight:900;
+  font-size:1.25rem;
+  color:var(--green);
+  text-shadow:1px 1px 0 #d4a72c
+}
+
+nav a{
+  color:var(--dark);
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:650
+}
+
+.btn{
+  display:inline-block;
+  border:0;
+  border-radius:12px;
+  padding:12px 18px;
+  font-weight:800;
+  cursor:pointer;
+  text-decoration:none;
+  background:var(--green);
+  color:white
+}
+
+.btn.alt{
+  background:#e5ecff;
+  color:var(--dark)
+}
+
+.hero{
+  background:linear-gradient(135deg,#e9efff,#fffaf0);
+  padding:78px 20px
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto
+}
+
+.hero h1{
+  font-size:clamp(2.2rem,6vw,4.5rem);
+  line-height:1.02;
+  max-width:760px;
+  margin:12px 0
+}
+
+.hero p{
+  max-width:690px;
+  color:#59647a;
+  font-size:1.12rem
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  background:#e5ecff;
+  border:1px solid #d4a72c;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:800;
+  color:var(--green)
+}
+
+section{
+  padding:68px 20px
+}
+
+.section-title{
+  font-size:2rem;
+  margin:0 0 10px
+}
+
+.muted{
+  color:#65708a
+}
+
+.grid{
+  display:grid;
+  gap:18px
+}
+
+.three{
+  grid-template-columns:repeat(3,1fr)
+}
+
+.two{
+  grid-template-columns:repeat(2,1fr)
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:22px;
+  background:white
+}
+
+.card h3{
+  margin-top:0
+}
+
+.price{
+  font-size:1.9rem;
+  font-weight:900;
+  color:var(--green)
+}
+
+.small{
+  font-size:.9rem;
+  color:#66756f
+}
+
+.mockmap{
+  height:300px;
+  border-radius:20px;
+  background:#e9eef9;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line)
+}
+
+.island{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:180px;
+  height:260px;
+  transform:translate(-50%,-50%) rotate(12deg);
+  background:#cbd7ef;
+  clip-path:polygon(
+    44% 0,
+    70% 10%,
+    83% 28%,
+    78% 43%,
+    93% 62%,
+    73% 74%,
+    76% 94%,
+    51% 100%,
+    36% 82%,
+    16% 79%,
+    23% 58%,
+    7% 43%,
+    22% 25%,
+    26% 7%
+  )
+}
+
+.dot{
+  position:absolute;
+  width:17px;
+  height:17px;
+  background:var(--green);
+  border:3px solid white;
+  border-radius:50%;
+  box-shadow:0 2px 6px #0004
+}
+
+.dot b{
+  position:absolute;
+  left:23px;
+  top:-8px;
+  white-space:nowrap;
+  background:#fff;
+  padding:5px 8px;
+  border-radius:8px;
+  font-size:.75rem
+}
+
+form{
+  display:grid;
+  gap:14px
+}
+
+label{
+  font-weight:700;
+  font-size:.92rem
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #cfdcd6;
+  border-radius:12px;
+  font:inherit;
+  background:white
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical
+}
+
+.notice{
+  padding:14px;
+  border-radius:12px;
+  background:#fff9e8;
+  border:1px solid #e5c86a
+}
+
+.success{
+  padding:14px;
+  border-radius:12px;
+  background:#e7f6ef;
+  color:#1746c7
+}
+
+.hidden{
+  display:none!important
+}
+
+footer{
+  background:#101a35;
+  color:#e5eaff;
+  padding:40px 20px
+}
+
+footer a{
+  color:white
+}
+
+.stat{
+  font-size:2.2rem;
+  font-weight:900
+}
+
+@media(max-width:760px){
+  nav .links{
+    display:none
+  }
+
+  .three,
+  .two{
+    grid-template-columns:1fr
+  }
+
+  .hero{
+    padding:55px 20px
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<div class="logo">KAR'O LIB</div>
+
+<div class="links">
+<a href="#concept">Concept</a>
+<a href="#stations">Stations</a>
+<a href="#tarifs">Tarifs</a>
+<a href="#sondage">Sondage</a>
+</div>
+
+<a class="btn" href="#sondage">Donner mon avis</a>
+</nav>
+</header>
+
+<main>
+
+<section class="hero">
+<div class="wrap">
+
+<span class="badge">PROJET ÉTUDIANT • LA RÉUNION</span>
+
+<h1>La voiture sans permis, en libre-service.</h1>
+
+<p>
+KAR'O LIB est un concept de mobilité électrique imaginé pour les trajets courts à La Réunion :
+réserver, rouler, puis restituer le véhicule dans une station autorisée.
+</p>
+
+<a class="btn" href="#concept">Découvrir le projet</a>
+
+<a class="btn alt" href="#sondage" style="margin-left:8px">
+Répondre au sondage
+</a>
+
+</div>
+</section>
+
+
+<section id="concept">
+<div class="wrap">
+
+<h2 class="section-title">Comment ça marche ?</h2>
+
+<p class="muted">
+Un service pensé comme un vélo en libre-service, mais avec une petite voiture électrique.
+</p>
+
+<div class="grid three" style="margin-top:24px">
+
+<div class="card">
+<div class="stat">01</div>
+<h3>Trouver</h3>
+<p>Consulter les véhicules disponibles près de soi.</p>
+</div>
+
+<div class="card">
+<div class="stat">02</div>
+<h3>Réserver</h3>
+<p>Choisir une voiture et la réserver depuis le site ou l'application.</p>
+</div>
+
+<div class="card">
+<div class="stat">03</div>
+<h3>Rouler</h3>
+<p>
+Déverrouiller, effectuer son trajet et restituer dans une zone autorisée.
+</p>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="stations" style="background:var(--light)">
+<div class="wrap">
+
+<h2 class="section-title">Stations pilotes</h2>
+
+<p class="muted">
+Carte conceptuelle : les emplacements devront être validés par une étude réelle.
+</p>
+
+<div class="mockmap" style="margin-top:20px">
+
+<div class="island"></div>
+
+<div class="dot" style="left:39%;top:36%">
+<b>Saint-Denis</b>
+</div>
+
+<div class="dot" style="left:52%;top:56%">
+<b>Station pilote</b>
+</div>
+
+<div class="dot" style="left:64%;top:72%">
+<b>Correspondance</b>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="tarifs">
+<div class="wrap">
+
+<h2 class="section-title">Tarifs proposés</h2>
+
+<p class="muted">
+Montants fictifs utilisés pour le projet scolaire, à ajuster après étude économique.
+</p>
+
+<div class="grid three" style="margin-top:24px">
+
+<div class="card">
+<div class="small">À l'usage</div>
+<div class="price">0,25 € / min</div>
+</div>
+
+<div class="card">
+<div class="small">Moins de 25 ans</div>
+<div class="price">-40 %</div>
+<p class="small">Exemple de réduction jeune.</p>
+</div>
+
+<div class="card">
+<div class="small">Abonnement</div>
+<div class="price">9,90 € / mois</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="sondage" style="background:var(--light)">
+<div class="wrap">
+
+<h2 class="section-title">Ton avis compte</h2>
+
+<p class="muted">
+Ce formulaire permet à notre classe de recueillir les avis et de mesurer l'intérêt pour le projet.
+</p>
+
+<div class="grid two" style="margin-top:24px">
+
+<div class="card">
+
+<form id="survey">
+
+<label>
+Prénom ou pseudo (facultatif)
+<input name="name" maxlength="50">
+</label>
+
+<label>
+Quel âge as-tu ?
+<select name="age" required>
+<option value="">Choisir</option>
+<option>- de 15 ans</option>
+<option>15–17 ans</option>
+<option>18–24 ans</option>
+<option>25–34 ans</option>
+<option>35 ans et +</option>
+</select>
+</label>
+
+<label>
+Utiliserais-tu ce service ?
+<select name="interest" required>
+<option value="">Choisir</option>
+<option>Oui, souvent</option>
+<option>Oui, parfois</option>
+<option>Peut-être</option>
+<option>Non</option>
+</select>
+</label>
+
+<label>
+Quel prix te semblerait acceptable par minute ?
+<select name="price" required>
+<option value="">Choisir</option>
+<option>0,10 €</option>
+<option>0,20 €</option>
+<option>0,25 €</option>
+<option>0,30 €</option>
+<option>Plus de 0,30 €</option>
+</select>
+</label>
+
+<label>
+Dans quelle zone aimerais-tu trouver une station ?
+<input name="area" maxlength="100" required>
+</label>
+
+<label>
+Une remarque ou une idée ?
+<textarea name="comment" maxlength="500"></textarea>
+</label>
+
+<button class="btn" type="submit">
+Envoyer ma réponse
+</button>
+
+<div id="status" aria-live="polite"></div>
+
+</form>
+</div>
+
+
+<div class="card">
+
+<h3>Pourquoi ce sondage ?</h3>
+
+<p>
+Les réponses pourront être utilisées dans la présentation du projet
+pour montrer les attentes des élèves et identifier les points à améliorer.
+</p>
+
+<div class="notice">
+<strong>Confidentialité :</strong>
+n'indique pas ton nom complet, ton adresse, ton numéro de téléphone
+ou une autre information personnelle inutile.
+</div>
+
+<h3 style="margin-top:25px">
+Connexion des réponses
+</h3>
+
+<p class="small">
+Pour enregistrer réellement les réponses de toute la classe,
+ce site peut être relié à Google Sheets via Google Apps Script.
+</p>
+
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+
+<footer>
+<div class="wrap">
+<strong>KAR'O LIB</strong>
+<p>Prototype scolaire — concept de mobilité à La Réunion.</p>
+</div>
+</footer>
+
+
+<script>
+
+/*
+====================================================
+CONFIGURATION DU FORMULAIRE
+====================================================
+
+Si tu n'as pas encore créé ton Google Apps Script,
+laisse l'adresse ci-dessous vide.
+
+Le site affichera alors un message indiquant que
+le formulaire n'est pas encore connecté.
+*/
+
+const CONFIG = {
+  endpoint: ""
+};
+
+
+const form = document.getElementById("survey");
+const status = document.getElementById("status");
+
+
+form.addEventListener("submit", async e => {
+
+  e.preventDefault();
+
+  const data = Object.fromEntries(
+    new FormData(form).entries()
+  );
+
+
+  if (
+    !data.age ||
+    !data.interest ||
+    !data.price ||
+    !data.area
+  ) {
+
+    status.innerHTML = `
+      <div class="notice">
+        Merci de compléter les champs obligatoires.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if (!CONFIG.endpoint) {
+
+    status.innerHTML = `
+      <div class="notice">
+        Le site est prêt, mais le formulaire n'est pas encore connecté
+        à une base de données.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  status.innerHTML = `
+    <p class="small">Envoi…</p>
+  `;
+
+
+  try {
+
+    await fetch(CONFIG.endpoint, {
+
+      method: "POST",
+
+      mode: "no-cors",
+
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+
+      body: JSON.stringify(data)
+
+    });
+
+
+    form.reset();
+
+    status.innerHTML = `
+      <div class="success">
+        <strong>Merci !</strong>
+        Ta réponse a bien été envoyée.
+      </div>
+    `;
+
+
+  } catch (err) {
+
+    status.innerHTML = `
+      <div class="notice">
+        Impossible d'envoyer la réponse.
+        Vérifie la connexion au formulaire.
+      </div>
+    `;
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
